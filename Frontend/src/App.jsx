@@ -1,37 +1,20 @@
-import { useState } from "react";
+import Form from "./components/Form"
+import UsersDisplay from "./components/UsersDisplay";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import "./index.css"
 
 const App = () => {
-    const [users, setUsers] = useState([])
-    const GetUsers = async () => {
-        try {
-            const apilink = await fetch("http://localhost:5000/api/get-users");
-            const response = await apilink.json();
-            setUsers(response)
-        }
-        catch (err) {
-            console.log(err)
-        }
-    }
-    return (
+  return (
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Form />} />
+          <Route path="/userdisplay" element={<UsersDisplay />} />
+        </Routes>
+      </Router>
 
-        <div>
-            {users.map((user) => (
-                <div key={user._id}>
-                    {/* <p>ID: {user._id}</p> */}
-                    <p>Username: {user.username}</p>
-                    <p>Email: {user.email}</p>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    
-                </div>
-            ))}
-            <button onClick={GetUsers}>click</button>
-
-        </div>
-    )
+    </>
+  )
 }
 
 export default App
